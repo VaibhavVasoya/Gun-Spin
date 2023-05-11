@@ -6,19 +6,24 @@ using UnityEngine;
 public class GunControler : MonoBehaviour
 {
     private Rigidbody2D rb;
-    [SerializeField] Bullet bullets;
+    public float RecoilForce;
+    public float Torque;
+
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
 
     public void Update()
     {
-
-       Debug.Log(Vector2.SignedAngle(Vector2.up,rb.transform.right));
-
+        if (Input.GetMouseButtonDown(0)) { 
+            Debug.Log(Vector2.SignedAngle(Vector2.up,transform.right));
+          
+        }
     }
 
 
@@ -31,16 +36,23 @@ public class GunControler : MonoBehaviour
 
     public void GunMovement()
     {
-        if (Input.GetMouseButtonDown(0) && Instantiate(bullets, rb.transform.position, rb.transform.rotation))
-        {
-             rb.velocity = new Vector2(0f, 5f);
-             rb.AddTorque(2f);
-         
+        if (Input.GetMouseButtonDown(0))
+        {            
+            rb.AddForce(-transform.right * RecoilForce);
+            float a = Vector2.SignedAngle(Vector2.up, transform.right);
+            if (a > 0)
+            {
+                rb.AddTorque(Torque);
+               // rb.SetRotation(a);
+            }
+            else
+            {
+                rb.AddTorque(-Torque);
+               // rb.SetRotation(-a);
+            }
+          
         }
-
     }
-
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,10 +66,6 @@ public class GunControler : MonoBehaviour
             transform.position = new Vector3(2f, transform.position.y, transform.position.z);
         }
     }
-
-
-
-    
 
 }
 
