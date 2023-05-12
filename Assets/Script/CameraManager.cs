@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-
+   
     public Transform player;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        transform.position = player.transform.position + new Vector3(0, -7, -10);
+        if (transform.position.y < player.position.y)
+        {
+            transform.position = new Vector3(0, player.position.y, -10);
+            //Debug.Log(transform.position = new Vector3(0, player.position.y, -10));
+        }       
+      
     }
+    // private void OnTriggerEnter2D(Collider2D other)
+    //    {
+    //       if (other.gameObject.CompareTag("Player"))
+    //        {
+    //        ScreenManager.instance.showNextScreen(ScreenList.GameOverScreen);
+    //        }
+    //    Debug.Log("Welcom");
+    //    }
+
+
+
+
 }
