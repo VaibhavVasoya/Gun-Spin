@@ -11,38 +11,59 @@ public class GunControler : MonoBehaviour
     public float Torque;
     public float ExtraForce = 100;
     public float StartForce;
+    public bool isplaying = false;
+    public static GunControler inst;
+    public static int Bulletcount = 0;
 
+    private void Awake()
+    {
+        inst = this;
+    }
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(Vector2.up * StartForce);
+        rb = GetComponent<Rigidbody2D>();        
+        rb.gravityScale = 0;
     }
 
-    private void FixedUpdate()
-    {
+    private void Update()
+    {        
         GunMovement();
-       
     }
 
     public void GunMovement()
     {
-        if (Input.GetMouseButtonDown(0))
-        {            
-          rb.AddForce(-transform.right * RecoilForce);
-            float a = Vector2.SignedAngle(Vector2.up, transform.right);
-            if (a > 0)
+         if (isplaying == true )
             {
-                rb.AddTorque(Torque);
-               // rb.SetRotation(a);
-            }
-            else
-            {
-                rb.AddTorque(-Torque);
-               // rb.SetRotation(-a);
-            }
-          
+                if (Input.GetMouseButtonDown(0))
+
+                {
+                if (Bulletcount > 0)
+                { 
+                    rb.AddForce(-transform.right * RecoilForce);
+                    float a = Vector2.SignedAngle(Vector2.up, transform.right);
+                    if (a > 0)
+                    {
+                        rb.AddTorque(Torque);
+
+                    }
+                    else
+                    {
+                        rb.AddTorque(-Torque);
+
+                    }
+                }
+                   Bulletcount -= 1;
+            }            
         }
     }
+
+
+    public void Gamestate()
+    {
+        rb.gravityScale = 0.3f;
+        rb.AddForce(Vector2.up * StartForce);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -65,16 +86,25 @@ public class GunControler : MonoBehaviour
        if (other.gameObject.CompareTag("Powerup"))
         {           
             rb.velocity = (Vector2.up * ExtraForce);
-            Debug.Log("powerup");
+           
             Destroy(other.gameObject);
         }
 
         if (other.gameObject.CompareTag("EndLine"))
         {
             ScreenManager.instance.showNextScreen(ScreenList.GameOverScreen);
-            Debug.Log("Welcom");
+          
         }
-
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Bulletcount += 1;
+            Destroy(other.gameObject);           
+       
+        }
+      //  if (other.gameObject.CompareTag("GroundPoller"))
+      //  {
+      //      GroundPooling.inst.GetgameObjects();
+      //  }
 
     }
 }

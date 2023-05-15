@@ -7,12 +7,12 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public TMP_Text Score;
-   // public TMP_Text HighScore;
+    private TMP_Text Score;    
+    public TMP_Text HighScore;
 
     int score;
     int highScore;
-    // Start is called before the first frame update
+    
 
     private void Awake()
     {
@@ -22,14 +22,22 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         Score.text =   " Current Score :- " + score.ToString();
-      // HighScore.text = " HighScore:-" + highScore.ToString();
+       HighScore.text = " HighScore:-" + highScore.ToString();
 
 
     }
 
+    public void savegame()
+    {
+        //SaveLoadGame.inst.Saveplayerdata(transform.position);
+        SaveandLoad.inst.Saveplayerdata(score);
+    }
+
+
+
     public void ChangeScore()
     {
         score += 1;
-        Score.text = " Current Score :- " + score.ToString();
+        Score.text = " Current Score :- " + score.ToString();        
     }
 }

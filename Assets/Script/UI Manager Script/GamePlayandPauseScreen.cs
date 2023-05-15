@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GamePlayandPauseScreen : MonoBehaviour
-{
-    //public Button pause;
-   // public Button play;
+{    
     public Button home;
     public GameObject pannel;
     
@@ -19,17 +18,22 @@ public class GamePlayandPauseScreen : MonoBehaviour
     {
         ScreenManager.instance.showNextScreen(ScreenList.HomeScreen);
         pannel.gameObject.SetActive(false);
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 
     public void OnPause()
     {
         pannel.gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
-  
+
     public void OnPlay()
     {
         pannel.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
+       
 
     
 }
