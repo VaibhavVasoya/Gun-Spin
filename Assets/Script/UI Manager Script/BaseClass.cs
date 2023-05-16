@@ -25,6 +25,7 @@ public class BaseClass : MonoBehaviour
 public enum ScreenList
 {
     HomeScreen,
+    GunShopScreen,
     GamePlayandPauseScreen,
     GameOverScreen,
 }

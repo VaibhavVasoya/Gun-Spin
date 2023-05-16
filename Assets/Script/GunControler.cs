@@ -15,19 +15,31 @@ public class GunControler : MonoBehaviour
     public static GunControler inst;
     public static int Bulletcount = 0;
 
+    public int CurrentGun = 0;
+    [SerializeField] Sprite[] Guns;
+    private SpriteRenderer Gunsprite;
+
+
     private void Awake()
     {
         inst = this;
     }
-    private void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();        
         rb.gravityScale = 0;
+        Gunsprite = GetComponent<SpriteRenderer>(); 
+       
+    }
+     public void Changesprite()
+    {
+        Gunsprite.sprite = Guns[CurrentGun];
     }
 
     private void Update()
     {        
         GunMovement();
+        Changesprite();
     }
 
     public void GunMovement()
@@ -56,10 +68,10 @@ public class GunControler : MonoBehaviour
             }            
         }
     }
-
-
+    
     public void Gamestate()
     {
+        
         rb.gravityScale = 0.3f;
         rb.AddForce(Vector2.up * StartForce);
     }
