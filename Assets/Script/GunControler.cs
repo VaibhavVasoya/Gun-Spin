@@ -6,14 +6,14 @@ using UnityEngine;
 public class GunControler : MonoBehaviour
 {
     private Rigidbody2D rb;
-    
+    public ParticleSystem ParticleSystem;
     public float RecoilForce;
     public float Torque;
     public float ExtraForce = 100;
     public float StartForce;
     public bool isplaying = false;
     public static GunControler inst;
-    public static int Bulletcount = 0;
+    public static int Bulletcount = 20;
 
     public int CurrentGun = 0;
     [SerializeField] Sprite[] Guns;
@@ -53,6 +53,10 @@ public class GunControler : MonoBehaviour
                 { 
                     rb.AddForce(-transform.right * RecoilForce);
                     float a = Vector2.SignedAngle(Vector2.up, transform.right);
+                    ParticleSystem.Play();
+                    
+                    
+                   
                     if (a > 0)
                     {
                         rb.AddTorque(Torque);
@@ -74,6 +78,7 @@ public class GunControler : MonoBehaviour
         
         rb.gravityScale = 0.3f;
         rb.AddForce(Vector2.up * StartForce);
+       
     }
 
 

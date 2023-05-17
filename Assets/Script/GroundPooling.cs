@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+
+public class Poolitem
+{
+    public GameObject Prefab;
+    public int amount;
+}
+
 public class GroundPooling : MonoBehaviour
 {
     public static GroundPooling inst;
-    private List<GameObject> gameObjects = new List<GameObject>();
-    private int amountpool = 2;
-    [SerializeField] private GameObject ground;
+    public List<Poolitem> poolitems;
+    public List<GameObject> pooleditems;
+
 
 
     private void Awake()
@@ -15,27 +23,30 @@ public class GroundPooling : MonoBehaviour
         inst = this;
     }
 
-    public void Start()
+
+    public GameObject Get(string tag)
     {
-        for (int i = 0; i < amountpool; i++)
+        for (int i = 0; i < pooleditems.Count; i++)
         {
-            GameObject obj = Instantiate(ground);
-            obj.SetActive(false);
-            gameObjects.Add(obj);
+            if (pooleditems[i].activeInHierarchy && pooleditems[i].tag == tag) 
+            {
+                return pooleditems[i];
+            }
         }
+        return null;
     }
 
-    public GameObject GetgameObjects()
+    public void start()
     {
-        for (int i = 0; i< gameObjects.Count; i++)
+        pooleditems = new List<GameObject>();
+        foreach (Poolitem item in poolitems)
         {
-            if (!gameObjects[i].activeInHierarchy)
+            for (int i = 0; i < item.amount; i++)
             {
-                return gameObjects[i];
+                GameObject obj = Instantiate(item.Prefab);
+                obj.SetActive(false);
+                pooleditems.Add(obj);
             }
-
         }
-
-        return null;
     }
 }

@@ -23,7 +23,7 @@ public class SaveandLoad : MonoBehaviour
     public void loadplayerdat()
     {
         //PlayerControler.inst.transform.position = gamesave.position;
-        ScoreManager.instance.savegame();
+//        ScoreManager.instance.savegame();
        // ScoreManager.instance.HighScore = GetScoresave.HighScore;
 
     }

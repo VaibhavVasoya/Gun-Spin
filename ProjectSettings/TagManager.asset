@@ -12,6 +12,7 @@ TagManager:
   - EndLine
   - GroundPoller
   - Bullet
+  - Prefab
   layers:
   - Default
   - TransparentFX
