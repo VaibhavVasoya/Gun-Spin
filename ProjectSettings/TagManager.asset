@@ -13,6 +13,7 @@ TagManager:
   - GroundPoller
   - Bullet
   - Prefab
+  - Camera
   layers:
   - Default
   - TransparentFX

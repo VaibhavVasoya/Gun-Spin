@@ -11,6 +11,7 @@ public class GunShop : MonoBehaviour
     private void Start()
     {
         Close.onClick.AddListener(Onclose);
+        ScoreManager.instance.Display();
     }
 
     public void Onclose()

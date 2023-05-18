@@ -7,12 +7,16 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    public TMP_Text Score;
-    public TMP_Text GameOverScore;
-    public TMP_Text HighScore;
+    public TMP_Text GamePlayCoin;
+    public TMP_Text GameOverCoin;
+    public TMP_Text GameOverHighestCoin;
+    public TMP_Text HomeScreenCoin;
+    public TMP_Text GunShopCoin;
+    public bool isGameover = false;
 
-    int score;
-    int highScore;
+    int Coin;
+   public int highestcoin;
+    
 
 
     private void Awake()
@@ -20,23 +24,35 @@ public class ScoreManager : MonoBehaviour
         instance = this;
     }
 
-    void Start()
+    
+    private void Start()
     {
-        Score.text = " Current Score :- " + score.ToString();
-        HighScore.text = " HighScore:-" + highScore.ToString();
+        highestcoin = PlayerPrefs.GetInt("Highest", 0);
     }
 
-    public void ChangeScore()
+    public void Display()
     {
-        score += 1;
-        Score.text = " Current Score :- " + score.ToString();
-        PlayerPrefs.SetInt("score", score);
-    }
-
-    public void gameoverscore()
-    {
-//       int GameOverScore = PlayerPrefs.GetInt();
+        highestcoin = PlayerPrefs.GetInt("Highest", 0);
+        GameOverHighestCoin.text = HomeScreenCoin.text = GunShopCoin.text = PlayerPrefs.GetInt("Highest").ToString();
 
     }
+
+    public void AddCoin()
+    {
+        Coin++;
+        GamePlayCoin.text = "Coin:- "+ Coin.ToString();
+        GameOverCoin.text = GamePlayCoin.text;
+    }
+
+    public void UpdateHighest()
+    {
+        PlayerPrefs.SetInt("Highest",(highestcoin + Coin));
+        Display();
+    }
+
+
+    
+    
+
 }
 

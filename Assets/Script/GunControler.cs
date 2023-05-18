@@ -13,7 +13,7 @@ public class GunControler : MonoBehaviour
     public float StartForce;
     public bool isplaying = false;
     public static GunControler inst;
-    public static int Bulletcount = 20;
+    public  int Bulletcount = 20;
 
     public int CurrentGun = 0;
     [SerializeField] Sprite[] Guns;
@@ -40,10 +40,12 @@ public class GunControler : MonoBehaviour
     {        
         GunMovement();
         Changesprite();
+        //Indicator.inst.UpdateText(Bulletcount);
     }
 
     public void GunMovement()
     {
+        if (Input.touchCount > 0) {
          if (isplaying == true )
             {
                 if (Input.GetMouseButtonDown(0))
@@ -69,9 +71,11 @@ public class GunControler : MonoBehaviour
                     }
                 }
                    Bulletcount -= 1;
+                    
             }            
         }
     }
+   }
     
     public void Gamestate()
     {
@@ -96,28 +100,36 @@ public class GunControler : MonoBehaviour
 
        if (other.gameObject.CompareTag("Coin"))
        {
-           ScoreManager.instance.ChangeScore();
-           Destroy(other.gameObject);         
-      
-       }
+           ScoreManager.instance.AddCoin();
+            other.gameObject.SetActive(false);
+
+        }
        if (other.gameObject.CompareTag("Powerup"))
         {           
             rb.velocity = (Vector2.up * ExtraForce);
-           
-            Destroy(other.gameObject);
+
+            other.gameObject.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("EndLine"))
         {
+            ScoreManager.instance.UpdateHighest();
             ScreenManager.instance.showNextScreen(ScreenList.GameOverScreen);
+           
           
         }
         if (other.gameObject.CompareTag("Bullet"))
         {
             Bulletcount += 1;
-            Destroy(other.gameObject);           
-       
+            //Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
+
+
+        
+
+
+
       //  if (other.gameObject.CompareTag("GroundPoller"))
       //  {
       //      GroundPooling.inst.GetgameObjects();

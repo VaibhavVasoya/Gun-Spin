@@ -17,12 +17,14 @@ public class HomeScreen : MonoBehaviour
     {
         playbutton.onClick.AddListener(OnPlay);
         Gunshop.onClick.AddListener(OnGunShop);
+        ScoreManager.instance.Display();
        
     }
 
     private void Awake()
     {
         inst = this;
+        
     }
 
     public void OnPlay()
