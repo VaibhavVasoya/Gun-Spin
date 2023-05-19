@@ -8,16 +8,31 @@ public class CoinPack : MonoBehaviour
     public Transform referenceposition;
 
     
-    private void OnTriggerEnter2D(Collider2D collision)
+   
+
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Camera"))
-        {
-            transform.position = new Vector2(0, referenceposition.position.y + 5) ;
-            collision.gameObject.SetActive(true);
+        
+        if (other.gameObject.CompareTag("Camera")) {
+           // Debug.Log("befor " + transform.position);
+            transform.position = new Vector2(0, referenceposition.position.y + 5);
+            //Debug.Log(transform.position);
+
+           foreach (GameObject i in   items )
+          {
+            i.SetActive(true);
+            
+          }
+            //Debug.Log(other.tag);
+            
         }
 
-            Debug.Log(transform.position = new Vector2(0, referenceposition.position.y + 5));
-            Debug.Log("is");
+
+      
+
+
+
+
 
 
     }

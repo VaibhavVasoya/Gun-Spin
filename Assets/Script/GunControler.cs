@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class GunControler : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -80,7 +81,7 @@ public class GunControler : MonoBehaviour
     public void Gamestate()
     {
         
-        rb.gravityScale = 0.3f;
+        rb.gravityScale = 1f;
         rb.AddForce(Vector2.up * StartForce);
        
     }
@@ -90,18 +91,19 @@ public class GunControler : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Right"))
         {
-            transform.position = new Vector3(-2f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-3.5f, transform.position.y, transform.position.z);
         }
 
         if (other.gameObject.CompareTag("Left"))
         {
-            transform.position = new Vector3(2f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(3.5f, transform.position.y, transform.position.z);
         }
 
        if (other.gameObject.CompareTag("Coin"))
        {
            ScoreManager.instance.AddCoin();
             other.gameObject.SetActive(false);
+            
 
         }
        if (other.gameObject.CompareTag("Powerup"))
@@ -115,12 +117,14 @@ public class GunControler : MonoBehaviour
         {
             ScoreManager.instance.UpdateHighest();
             ScreenManager.instance.showNextScreen(ScreenList.GameOverScreen);
+            gameObject.SetActive(false);
+           
            
           
         }
         if (other.gameObject.CompareTag("Bullet"))
         {
-            Bulletcount += 1;
+            Bulletcount += 5;
             //Destroy(other.gameObject);
             other.gameObject.SetActive(false);
         }

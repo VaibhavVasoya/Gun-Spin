@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class GameOverScreen : MonoBehaviour
 {
     public Button Home;
-    public Button Retry;
+    //public Button Retry;
 
     private void Start()
     {
         Home.onClick.AddListener(OnHome);
 
-        Retry.onClick.AddListener(OnRetry);
+      //  Retry.onClick.AddListener(OnRetry);
     }
 
     public void OnHome()
