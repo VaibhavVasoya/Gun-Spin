@@ -40,8 +40,8 @@ public class ScoreManager : MonoBehaviour
     public void AddCoin()
     {
         Coin++;
-        GamePlayCoin.text = "Coin:- "+ Coin.ToString();
         GameOverCoin.text = GamePlayCoin.text;
+        GamePlayCoin.text = "Coin:- "+ Coin.ToString();        
     }
 
     public void UpdateHighest()
@@ -50,9 +50,12 @@ public class ScoreManager : MonoBehaviour
         Display();
     }
 
+    private void Update()
+    {
+    }
 
-    
-    
+
+
 
 }
 

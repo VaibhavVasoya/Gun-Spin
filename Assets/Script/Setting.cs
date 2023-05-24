@@ -12,18 +12,12 @@ public class Setting : MonoBehaviour
     public Sprite unmute;
    // public Sprite VibrationOn;
     //public Sprite VibrationOff;
-    public Button voulume;
+    public Button btnvoulume;
     public Button vibration;
     public AudioSource audioSource;
 
-    int counter = 0;
-
-    public static Setting inst;
-
-    private void Awake()
-    {
-        inst = this;
-    }
+    int counter = 0; 
+    
 
   public void OnPlay()
     {
@@ -36,7 +30,7 @@ public class Setting : MonoBehaviour
         {
             counter = 1;
             audioSource.mute = true;
-            voulume.image.sprite = mute;
+            btnvoulume.image.sprite = mute;
             
         }
 
@@ -44,7 +38,7 @@ public class Setting : MonoBehaviour
         {
             counter = 0;
             audioSource.mute = false;
-            voulume.image.sprite = unmute;
+            btnvoulume.image.sprite = unmute;
            
 
         }
@@ -72,8 +66,7 @@ public class Setting : MonoBehaviour
    //    }       
    //}
     public void OnClose()
-    {
-        ScreenManager.instance.showNextScreen(ScreenList.HomeScreen);
-        HomeScreen.inst.Pannel.gameObject.SetActive(false);
+    {        
+        gameObject.SetActive(false);
     }
 }

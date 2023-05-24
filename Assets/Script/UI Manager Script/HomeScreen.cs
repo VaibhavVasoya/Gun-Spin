@@ -4,34 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HomeScreen : MonoBehaviour
+public class HomeScreen : BaseClass
 {
-    public Button playbutton;
+    public Button btnplay;
     public float StartForce;
-    public Button Gunshop;
-    public GameObject Pannel;
+    public Button btnGunshop;
+    public GameObject settingPannel;
+    GunControler controler;
 
-    public static HomeScreen inst;
+    
 
     private void Start()
     {
-        playbutton.onClick.AddListener(OnPlay);
-        Gunshop.onClick.AddListener(OnGunShop);
+        btnplay.onClick.AddListener(OnPlay);
+        btnGunshop.onClick.AddListener(OnGunShop);
         ScoreManager.instance.Display();
        
     }
-
-    private void Awake()
-    {
-        inst = this;
-        
-    }
+   
 
     public void OnPlay()
     {
+
         ScreenManager.instance.showNextScreen(ScreenList.GamePlayandPauseScreen);
-        GunControler.inst.isplaying = true;
-        GunControler.inst.Gamestate();
+        GunControler.inst.GameOnstart();
+       // controler.GameOnstart();
     }
 
     public void OnGunShop()
@@ -42,7 +39,7 @@ public class HomeScreen : MonoBehaviour
 
     public void SettingPannel()
     {
-        Pannel.gameObject.SetActive(true);
+        settingPannel.gameObject.SetActive(true);
     }
    
 }
